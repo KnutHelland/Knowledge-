@@ -1,10 +1,10 @@
 /**
  * This is a part of Knowledge!
- * All rights reserved to Knut Helland.
  *
  * @author Knut Helland <knutoh@gmail.com>
- * @copyright Knut Helland 2010
+ * @license GNU GPL 3 or newer
  */
+
 
 
 #ifndef KDOCUMENT_H
