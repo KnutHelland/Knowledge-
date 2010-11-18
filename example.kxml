@@ -1,0 +1,34 @@
+<kxml>
+
+  <meta>
+    <title>Eksempeldatabase</title>
+    <language>no-nn</language>
+    <author>Knut Helland</author>
+  </meta>
+
+  <questions>
+    <category name="Lett" color="#f00">
+      <category name="Lett blanding">
+
+	<question type="manual" id="1">
+	  <text>Kva heiter hovudstaden i Noreg?</text>
+	  <image><!-- encoded binary pixmap png-format --></image>
+	</question>
+
+	<question type="alternatives">
+	  <text>Kva heiter hovudstaden i Finland?</text>
+	  <image><!-- encoded binary png pixmap --></image>
+	  <answer correct="correct">Helsinki</answer>
+	  <answer>Islamabad</answer>
+	  <answer>Oslo</answer>
+	</question>
+
+      </category>
+    </category>
+  </questions>
+      
+  <settings>
+    <setting name="TTT-time-limit">15</setting>
+  </settings>
+
+</kxml>
