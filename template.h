@@ -1,0 +1,16 @@
+/**
+ * This is a part of Knowledge!
+ * All rights reserved to Knut Helland.
+ *
+ * @author Knut Helland <knutoh@gmail.com>
+ * @copyright Knut Helland 2010
+ */
+
+
+#ifndef HEADER_H
+#define HEADER_H
+
+
+
+
+#endif
