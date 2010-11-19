@@ -1,0 +1,6 @@
+h1. Knowlegde!
+
+Knowlegde! is a cross-platform kowlegde game in C++/Qt made by Knut
+Helland as a submission in IT2 (information technology 2) at
+school. It's licensed under GNU GPL 3 or newer. Some of the documents
+may be written in norwegian only.
