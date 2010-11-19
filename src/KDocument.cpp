@@ -18,6 +18,9 @@
 
 
 
+typedef unsigned int uint;
+
+
 KDocument::KDocument() {
 
 }
@@ -53,10 +56,56 @@ bool KDocument::loadKxml(QString filename) {
 
 
     /*
-     * Questions
+     * Categories
      */
+    QDomNodeList categories = document.elementsByTagName("category");
+    for (uint i = 0; i < categories.length(); i++) {
+	
+	QDomElement category = categories.at(i).toElement();
+	m_categories.append(category.attribute("name"));
 
+	
 
+	/*
+	 * Questions
+	 */
+	QDomNodeList questions = document.elementsByTagName("question");
+	for (uint i = 0; i < categories.length(); i++) {
+	    
+	    QDomElement question = questions.at(i).toElement();
+	    KQuestion q();
+	    
+	    // Type
+	    if (question.attribute("type") == "alternatives") {
+		q.setType(KQuestion::Alternatives);
+	    } else {
+		q.setType(KQuestion::Manual);
+	    }
+
+	    // Level
+	    if (question.attribute("level") == "easy") {
+		q.setLevel(KQuestion::Easy);
+	    } else if (question.attribute("level") == "medium") {
+		q.setLevel(KQuestion::Medium);
+	    } else {
+		q.setLevel(KQuestion::Hard);
+	    }
+
+	    // Image
+	    QDomNodeList images = question.elementsByTagName("image");
+	    if (images.count() > 0) {
+		QDomElement image = images.at(0).toElement();
+		QByteArray ba = QByteArray::fromBase64(image.text());
+		QPixmap p();
+		p.loadFromData(ba, "PNG");
+		q.setImage(p);
+	    }
+
+	    // Answers
+	    QDomNodeList answers = question.elementsByTagName("answer");
+	    if (images.count() > 0) {
+		QDomElement answer = answers.at(0).toElement();
+		
     return true;
 }
 

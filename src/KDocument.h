@@ -10,8 +10,12 @@
 #ifndef KDOCUMENT_H
 #define KDOCUMENT_H
 
+#include "KQuestion.h" 
+
+
 #include <QObject>
 #include <QMap>
+#include <QList>
 #include <QString>
 #include <QVariant>
 
@@ -47,6 +51,9 @@ public:
 
 protected:
     QMap<QString, QVariant> m_settings;
+
+    QList<QString> m_categories;
+    QList<KQuestion> m_questions;
 
     QString m_title;
     QString m_author;
