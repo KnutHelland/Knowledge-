@@ -7,23 +7,21 @@
   </meta>
 
   <questions>
-    <category name="Lett" color="#f00">
-      <category name="Lett blanding">
+    <category name="Lett blanding">
 
-	<question type="manual" id="1">
-	  <text>Kva heiter hovudstaden i Noreg?</text>
-	  <image><!-- encoded binary pixmap png-format --></image>
-	</question>
+      <question type="manual" id="1" level="easy">
+	<text>Kva heiter hovudstaden i Noreg?</text>
+	<image><!-- encoded binary pixmap png-format --></image>
+      </question>
 
-	<question type="alternatives">
-	  <text>Kva heiter hovudstaden i Finland?</text>
-	  <image><!-- encoded binary png pixmap --></image>
-	  <answer correct="correct">Helsinki</answer>
-	  <answer>Islamabad</answer>
-	  <answer>Oslo</answer>
-	</question>
+      <question type="alternatives" level="easy">
+	<text>Kva heiter hovudstaden i Finland?</text>
+	<image><!-- encoded binary png pixmap --></image>
+	<answer correct="correct">Helsinki</answer>
+	<answer>Islamabad</answer>
+	<answer>Oslo</answer>
+      </question>
 
-      </category>
     </category>
   </questions>
       
