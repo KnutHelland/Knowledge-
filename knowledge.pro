@@ -7,7 +7,7 @@ TARGET = Knowledge
 DEPENDPATH += . src
 INCLUDEPATH += . src
 
-QT += core gui xml
+QT += gui xml
 
 OBJECTS_DIR = tmp
 MOC_DIR = tmp

@@ -6,18 +6,17 @@
  */
 
 
-
 #ifndef KDOCUMENT_H
 #define KDOCUMENT_H
 
-#include "KQuestion.h" 
-
-
 #include <QObject>
-#include <QMap>
+#include <QHash>
 #include <QList>
 #include <QString>
 #include <QVariant>
+
+#include "KQuestion.h"
+
 
 
 class KDocument : public QObject {
@@ -50,7 +49,7 @@ public:
 
 
 protected:
-    QMap<QString, QVariant> m_settings;
+    QHash<QString, QVariant> m_settings;
 
     QList<QString> m_categories;
     QList<KQuestion> m_questions;

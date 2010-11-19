@@ -6,9 +6,9 @@
  */
 
 
-#include "KDocument.h"
-
 #include <QStringList>
+#include <QByteArray>
+#include <QVariant>
 #include <QFile>
 
 #include <QDomDocument>
@@ -16,9 +16,10 @@
 #include <QDomText>
 #include <QDomNodeList>
 
+#include "KDocument.h"
 
 
-typedef unsigned int uint;
+
 
 
 KDocument::KDocument() {
@@ -73,7 +74,9 @@ bool KDocument::loadKxml(QString filename) {
 	for (uint i = 0; i < categories.length(); i++) {
 	    
 	    QDomElement question = questions.at(i).toElement();
-	    KQuestion q();
+	    KQuestion q;
+
+	    q.setCategory(category.attribute("name"));
 	    
 	    // Type
 	    if (question.attribute("type") == "alternatives") {
@@ -95,8 +98,8 @@ bool KDocument::loadKxml(QString filename) {
 	    QDomNodeList images = question.elementsByTagName("image");
 	    if (images.count() > 0) {
 		QDomElement image = images.at(0).toElement();
-		QByteArray ba = QByteArray::fromBase64(image.text());
-		QPixmap p();
+		QByteArray ba = QByteArray::fromBase64(image.text().toUtf8());
+		QPixmap p;
 		p.loadFromData(ba, "PNG");
 		q.setImage(p);
 	    }
@@ -105,7 +108,32 @@ bool KDocument::loadKxml(QString filename) {
 	    QDomNodeList answers = question.elementsByTagName("answer");
 	    if (images.count() > 0) {
 		QDomElement answer = answers.at(0).toElement();
-		
+
+		if (answer.attribute("correct") != 0) {
+		    q.m_answers.prepend(answer.text());
+		} else {
+		    q.m_answers.append(answer.text());
+		}
+	    }
+
+	    m_questions.append(q);
+	}
+    }
+
+    /*
+     * Settings
+     */
+    QDomNodeList settings = document.elementsByTagName("setting");
+    for (uint i = 0; i < settings.length(); i++) {
+	
+	QDomElement setting = settings.at(i).toElement();
+	m_settings.insert(
+	    setting.attribute("name"),
+	    QVariant(setting.text())
+	);
+
+    }
+
     return true;
 }
 
