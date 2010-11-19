@@ -8,6 +8,7 @@
 
 #include "KDocument.h"
 
+#include <QStringList>
 #include <QFile>
 
 #include <QDomDocument>
@@ -29,21 +30,22 @@ KDocument::KDocument() {
  */
 bool KDocument::loadKxml(QString filename) {
     QFile file(filename);
-    file->open(QUIDevice::ReadOnly);
+    file.open(QIODevice::ReadOnly);
     QDomDocument document("kxml");
     
-    if (!document.setContent(file)) {
+    if (!document.setContent(&file)) {
 	return false;
     }
 
     /*
      * Meta information
      */
-    QList meta() << "title" << "author" << "description" << "language";
-    for (i = 0; i < meta.size(); i++) {
+    QStringList meta;
+    meta << "title" << "author" << "description" << "language";
+    for (int i = 0; i < meta.size(); i++) {
 	
 	setProperty(
-	    meta.at(i),
+	    meta.at(i).toUtf8(),
 	    document.elementsByTagName( meta.at(i) ).at(0).toElement().text()
 	);
 
@@ -61,12 +63,12 @@ bool KDocument::loadKxml(QString filename) {
 
 
 
-QVariant setting(QString name) {
+QVariant KDocument::setting(QString name) {
     return m_settings.value(name);
 }
 
 
 
-void setSetting(QString name, QVariant value) {
-    m_settings.set(name, value);
+void KDocument::setSetting(QString name, QVariant value) {
+    m_settings.insert(name, value);
 }

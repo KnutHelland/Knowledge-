@@ -14,5 +14,6 @@ MOC_DIR = tmp
 DESTDIR = build
 
 # Input
-HEADERS += template.h src/KDocument.h
-SOURCES += template.cpp src/KDocument.cpp src/main.cpp
+HEADERS += src/KDocument.h
+SOURCES += src/KDocument.cpp \
+           src/main.cpp

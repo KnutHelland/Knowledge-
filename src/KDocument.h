@@ -11,11 +11,13 @@
 #define KDOCUMENT_H
 
 #include <QObject>
+#include <QMap>
+#include <QString>
+#include <QVariant>
 
-class QString;
-class QVariant;
 
-class KDocument extends QObject {
+class KDocument : public QObject {
+    Q_OBJECT;
     Q_PROPERTY(QString title READ title WRITE setTitle);
     Q_PROPERTY(QString author READ author WRITE setAuthor);
     Q_PROPERTY(QString description READ description WRITE setDescription);
@@ -39,12 +41,12 @@ public:
     void setDescription(QString description) { m_description = description; }
 
     QString language() { return m_language; }
-    void setLanguage(QString language) { m_langauge = language; }
+    void setLanguage(QString language) { m_language = language; }
 
 
 
 protected:
-    QHashMap<QString, QVariant> m_settings;
+    QMap<QString, QVariant> m_settings;
 
     QString m_title;
     QString m_author;
