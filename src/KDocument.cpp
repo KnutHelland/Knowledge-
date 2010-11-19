@@ -150,24 +150,24 @@ bool KDocument::saveKxml(QString filename) {
      * <meta>
      */
     {
-	QDomElement meta = document.createElement("meta");
-	root.appendChild(meta);
+    	QDomElement meta = document.createElement("meta");
+    	root.appendChild(meta);
 
-	QDomElement title = document.createElement("title");
-	title.appendChild(document.createTextNode(m_title));
-	meta.appendChild(title);
+    	QDomElement title = document.createElement("title");
+    	title.appendChild(document.createTextNode(m_title));
+    	meta.appendChild(title);
 
-	QDomElement author = document.createElement("author");
-	author.appendChild(document.createTextNode(m_author));
-	meta.appendChild(author);
+    	QDomElement author = document.createElement("author");
+    	author.appendChild(document.createTextNode(m_author));
+    	meta.appendChild(author);
 
-	QDomElement description = document.createElement("description");
-	description.appendChild(document.createTextNode(m_description));
-	meta.appendChild(description);
+    	QDomElement description = document.createElement("description");
+    	description.appendChild(document.createTextNode(m_description));
+    	meta.appendChild(description);
 
-	QDomElement language = document.createElement("language");
-	language.appendChild(document.createTextNode(m_language));
-	meta.appendChild(language);
+    	QDomElement language = document.createElement("language");
+    	language.appendChild(document.createTextNode(m_language));
+    	meta.appendChild(language);
     }
 
 
@@ -175,67 +175,67 @@ bool KDocument::saveKxml(QString filename) {
      * <questions>
      */
     {
-	QDomElement questions = document.createElement("questions");
-	root.appendChild(questions);
+    	QDomElement questions = document.createElement("questions");
+    	root.appendChild(questions);
 
-	for (int i = 0; i < m_categories.size(); i++) {
+    	for (int i = 0; i < m_categories.size(); i++) {
 	    
-	    QDomElement category = document.createElement("category");
-	    category.setAttribute("name", m_categories.at(i));
-	    questions.appendChild(category);
+    	    QDomElement category = document.createElement("category");
+    	    category.setAttribute("name", m_categories.at(i));
+    	    questions.appendChild(category);
 
-	    for (int j = 0; j < m_questions.size(); i++) {
-		if (m_questions.at(i).category() == m_categories.at(i)) {
-		    const KQuestion *q = &m_questions.at(i);
+    	    for (int j = 0; j < m_questions.size(); j++) {
+    		if (m_questions.at(j).category() == m_categories.at(i)) {
+    		    const KQuestion *q = &m_questions.at(j);
 
-		    QDomElement question = document.createElement("question");
-		    category.appendChild(question);
+    		    QDomElement question = document.createElement("question");
+    		    category.appendChild(question);
 
-		    if (q->type() == KQuestion::Manual) {
-			question.setAttribute("type", "manual");
-		    } else {
-			question.setAttribute("type", "alternatives");
-		    }
+    		    if (q->type() == KQuestion::Manual) {
+    		    	question.setAttribute("type", "manual");
+    		    } else {
+    		    	question.setAttribute("type", "alternatives");
+    		    }
 
-		    if (q->level() == KQuestion::Easy) {
-			question.setAttribute("level", "easy");
-		    } else if (q->level() == KQuestion::Medium) {
-			question.setAttribute("level", "medium");
-		    } else {
-			question.setAttribute("level", "hard");
-		    }
+    		    if (q->level() == KQuestion::Easy) {
+    		    	question.setAttribute("level", "easy");
+    		    } else if (q->level() == KQuestion::Medium) {
+    		    	question.setAttribute("level", "medium");
+    		    } else {
+    		    	question.setAttribute("level", "hard");
+    		    }
 
-		    // Text
-		    QDomElement text = document.createElement("text");
-		    text.appendChild(document.createTextNode(q->text()));
-		    question.appendChild(text);
+    		    // Text
+    		    QDomElement text = document.createElement("text");
+    		    text.appendChild(document.createTextNode(q->text()));
+    		    question.appendChild(text);
 
-		    // Image
-		    QByteArray ba;
-		    QBuffer buffer(&ba);
-		    buffer.open(QIODevice::WriteOnly);
-		    q->image().save(&buffer, "PNG");
+    		    // Image
+    		    QByteArray ba;
+    		    QBuffer buffer(&ba);
+    		    buffer.open(QIODevice::WriteOnly);
+    		    q->image().save(&buffer, "PNG");
 		    		    
-		    QDomElement image = document.createElement("image");
-		    image.appendChild(document.createTextNode(ba.toBase64()));
-		    question.appendChild(image);
+    		    QDomElement image = document.createElement("image");
+    		    image.appendChild(document.createTextNode(ba.toBase64()));
+    		    question.appendChild(image);
 
-		    // Answers
-		    for (int k = 0; k < q->m_answers.size(); k++) {
+    		    // Answers
+    		    for (int k = 0; k < q->m_answers.size(); k++) {
 			
-			QDomElement answer = document.createElement("answer");
-			answer.appendChild(document.createTextNode(q->m_answers[k]));
+    		    	QDomElement answer = document.createElement("answer");
+    		    	answer.appendChild(document.createTextNode(q->m_answers[k]));
 			
-			if (k == 0) {
-			    answer.setAttribute("correct", "correct");
-			}
+    		    	if (k == 0) {
+    		    	    answer.setAttribute("correct", "correct");
+    		    	}
 
-			question.appendChild(answer);
+    		    	question.appendChild(answer);
 
-		    }
-		}
-	    }
-	}
+    		    }
+    		}
+    	    }
+    	}
     }
 
 
@@ -243,18 +243,19 @@ bool KDocument::saveKxml(QString filename) {
      * <settings>
      */
     {
-	QDomElement settings = document.createElement("settings");
-	root.appendChild(settings);
+    	QDomElement settings = document.createElement("settings");
+    	root.appendChild(settings);
 
-	QList<QString> names = m_settings.keys();
+    	QList<QString> names = m_settings.keys();
 	
-	for (int i = 0; i < names.size(); i++) {
+    	for (int i = 0; i < names.size(); i++) {
 	    
-	    QDomElement setting = document.createElement("setting");
+    	    QDomElement setting = document.createElement("setting");
+	    setting.setAttribute("name", names.at(i));
 	    setting.appendChild(document.createTextNode( m_settings.value(names.at(i)).toString() ));
-	    settings.appendChild(setting);
+    	    settings.appendChild(setting);
 
-	}
+    	}
     }
     
 
