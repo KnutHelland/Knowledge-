@@ -8,6 +8,7 @@
 
 #include <QStringList>
 #include <QByteArray>
+#include <QBuffer>
 #include <QVariant>
 #include <QFile>
 
@@ -133,6 +134,134 @@ bool KDocument::loadKxml(QString filename) {
 	);
 
     }
+
+    return true;
+}
+
+
+
+bool KDocument::saveKxml(QString filename) {
+    QDomDocument document("kxml");
+
+    QDomElement root = document.createElement("kxml");
+    document.appendChild(root);
+
+    /*
+     * <meta>
+     */
+    {
+	QDomElement meta = document.createElement("meta");
+	root.appendChild(meta);
+
+	QDomElement title = document.createElement("title");
+	title.appendChild(document.createTextNode(m_title));
+	meta.appendChild(title);
+
+	QDomElement author = document.createElement("author");
+	author.appendChild(document.createTextNode(m_author));
+	meta.appendChild(author);
+
+	QDomElement description = document.createElement("description");
+	description.appendChild(document.createTextNode(m_description));
+	meta.appendChild(description);
+
+	QDomElement language = document.createElement("language");
+	language.appendChild(document.createTextNode(m_language));
+	meta.appendChild(language);
+    }
+
+
+    /*
+     * <questions>
+     */
+    {
+	QDomElement questions = document.createElement("questions");
+	root.appendChild(questions);
+
+	for (int i = 0; i < m_categories.size(); i++) {
+	    
+	    QDomElement category = document.createElement("category");
+	    category.setAttribute("name", m_categories.at(i));
+	    questions.appendChild(category);
+
+	    for (int j = 0; j < m_questions.size(); i++) {
+		if (m_questions.at(i).category() == m_categories.at(i)) {
+		    const KQuestion *q = &m_questions.at(i);
+
+		    QDomElement question = document.createElement("question");
+		    category.appendChild(question);
+
+		    if (q->type() == KQuestion::Manual) {
+			question.setAttribute("type", "manual");
+		    } else {
+			question.setAttribute("type", "alternatives");
+		    }
+
+		    if (q->level() == KQuestion::Easy) {
+			question.setAttribute("level", "easy");
+		    } else if (q->level() == KQuestion::Medium) {
+			question.setAttribute("level", "medium");
+		    } else {
+			question.setAttribute("level", "hard");
+		    }
+
+		    // Text
+		    QDomElement text = document.createElement("text");
+		    text.appendChild(document.createTextNode(q->text()));
+		    question.appendChild(text);
+
+		    // Image
+		    QByteArray ba;
+		    QBuffer buffer(&ba);
+		    buffer.open(QIODevice::WriteOnly);
+		    q->image().save(&buffer, "PNG");
+		    		    
+		    QDomElement image = document.createElement("image");
+		    image.appendChild(document.createTextNode(ba.toBase64()));
+		    question.appendChild(image);
+
+		    // Answers
+		    for (int k = 0; k < q->m_answers.size(); k++) {
+			
+			QDomElement answer = document.createElement("answer");
+			answer.appendChild(document.createTextNode(q->m_answers[k]));
+			
+			if (k == 0) {
+			    answer.setAttribute("correct", "correct");
+			}
+
+			question.appendChild(answer);
+
+		    }
+		}
+	    }
+	}
+    }
+
+
+    /*
+     * <settings>
+     */
+    {
+	QDomElement settings = document.createElement("settings");
+	root.appendChild(settings);
+
+	QList<QString> names = m_settings.keys();
+	
+	for (int i = 0; i < names.size(); i++) {
+	    
+	    QDomElement setting = document.createElement("setting");
+	    setting.appendChild(document.createTextNode( m_settings.value(names.at(i)).toString() ));
+	    settings.appendChild(setting);
+
+	}
+    }
+    
+
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    file.write(document.toByteArray());
+    file.close();
 
     return true;
 }

@@ -30,6 +30,7 @@ public:
     KDocument();
 
     bool loadKxml(QString filename);
+    bool saveKxml(QString filename);
 
     QVariant setting(QString name);
     void setSetting(QString name, QVariant value);
