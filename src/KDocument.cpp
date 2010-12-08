@@ -17,6 +17,8 @@
 #include <QDomText>
 #include <QDomNodeList>
 
+#include <iostream>
+
 #include "KDocument.h"
 
 
@@ -72,12 +74,21 @@ bool KDocument::loadKxml(QString filename) {
 	 * Questions
 	 */
 	QDomNodeList questions = document.elementsByTagName("question");
-	for (uint i = 0; i < categories.length(); i++) {
+	for (uint j = 0; j < questions.length(); j++) {
 	    
-	    QDomElement question = questions.at(i).toElement();
+	    QDomElement question = questions.at(j).toElement();
 	    KQuestion q;
 
 	    q.setCategory(category.attribute("name"));
+
+	    // Text
+	    QDomElement text = question.elementsByTagName("text").at(0).toElement();
+	    q.setText(text.text());
+
+	    // Id
+	    if (question.hasAttribute("id")) {
+		q.setId(question.attribute("id").toInt());
+	    }
 	    
 	    // Type
 	    if (question.attribute("type") == "alternatives") {
@@ -107,9 +118,9 @@ bool KDocument::loadKxml(QString filename) {
 
 	    // Answers
 	    QDomNodeList answers = question.elementsByTagName("answer");
-	    if (images.count() > 0) {
-		QDomElement answer = answers.at(0).toElement();
-
+	    for (uint k = 0; k < answers.length(); k++) {
+		QDomElement answer = answers.at(k).toElement();
+		
 		if (answer.attribute("correct") != 0) {
 		    q.m_answers.prepend(answer.text());
 		} else {
@@ -204,24 +215,30 @@ bool KDocument::saveKxml(QString filename) {
     		    } else {
     		    	question.setAttribute("level", "hard");
     		    }
+		    
+		    if (q->id() > 0) {
+			question.setAttribute("id", q->id());
+		    }
 
     		    // Text
     		    QDomElement text = document.createElement("text");
     		    text.appendChild(document.createTextNode(q->text()));
     		    question.appendChild(text);
 
-    		    // Image
-    		    QByteArray ba;
-    		    QBuffer buffer(&ba);
-    		    buffer.open(QIODevice::WriteOnly);
-    		    q->image().save(&buffer, "PNG");
+		    if (!q->image().isNull()) {
+			// Image
+			QByteArray ba;
+			QBuffer buffer(&ba);
+			buffer.open(QIODevice::WriteOnly);
+			q->image().save(&buffer, "PNG");
 		    		    
-    		    QDomElement image = document.createElement("image");
-    		    image.appendChild(document.createTextNode(ba.toBase64()));
-    		    question.appendChild(image);
+			QDomElement image = document.createElement("image");
+			image.appendChild(document.createTextNode(ba.toBase64()));
+			question.appendChild(image);
+		    }
 
     		    // Answers
-    		    for (int k = 0; k < q->m_answers.size(); k++) {
+    		    for (int k = 0; k < q->m_answers.length(); k++) {
 			
     		    	QDomElement answer = document.createElement("answer");
     		    	answer.appendChild(document.createTextNode(q->m_answers[k]));

@@ -17,6 +17,7 @@
 class KQuestion : public QObject {
     Q_OBJECT;
 
+    Q_PROPERTY(int id READ id WRITE setId);
     Q_PROPERTY(QString text READ text WRITE setText);
     Q_PROPERTY(QString category READ category WRITE setCategory);
     Q_PROPERTY(Type type READ type WRITE setType);
@@ -31,7 +32,10 @@ public:
 
 
     KQuestion() : QObject() {}
-    KQuestion(const KQuestion &q) : QObject() { m_text = q.text(); m_category = q.category(); m_type = q.type(); m_level = q.level(); m_image = q.image(); }
+    KQuestion(const KQuestion &q) : QObject() { m_answers = q.m_answers; m_id = q.id(); m_text = q.text(); m_category = q.category(); m_type = q.type(); m_level = q.level(); m_image = q.image(); }
+
+    int id() const { return m_id; }
+    void setId(int id) { m_id = id; }
 
     QString text() const { return m_text; }
     void setText(QString text) { m_text = text; }
@@ -54,6 +58,7 @@ public:
     QList<QString> m_answers;
 
 protected:
+    int m_id;
     QString m_text, m_category;
     Type m_type;
     Level m_level;
