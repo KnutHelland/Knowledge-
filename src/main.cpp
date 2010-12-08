@@ -8,14 +8,14 @@
 #include <QApplication>
 
 #include "KDocument.h"
+#include "KMainWindow.h"
 
 int main(int args, char** argc) {
 
     QApplication app(args, argc);
 
-    KDocument doc;
-    doc.loadKxml("../example.kxml");
-    doc.saveKxml("output.kxml");
+    KMainWindow * window = new KMainWindow();
+    window->showNormal();
 
     app.exec();
 
