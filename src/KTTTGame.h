@@ -13,6 +13,8 @@
 
 #include "KGame.h"
 
+class QGraphicsView;
+class QGraphicsScene;
 class QWidget;
 
 
@@ -21,7 +23,7 @@ class KTTTGame : public KGame {
 public:
     KTTTGame();
 
-    virtual QWidget * widget() { return m_widget; }
+    virtual QWidget * widget() { return static_cast<QWidget *>(m_view); }
     virtual QPixmap * pixmap() { return 0; }
     virtual QString title() { return "Tic Tac Toe"; }
 
@@ -32,7 +34,9 @@ public:
     virtual void load(KDocument *);
 
 protected:
-    QWidget *m_widget;
+    QGraphicsView *m_view;
+    QGraphicsScene *m_scene;
+    
     KDocument *m_document;
 };
 

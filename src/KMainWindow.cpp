@@ -11,6 +11,7 @@
 #include <QFileDialog>
 
 #include "KMainWindow.h"
+#include "KTTTGame.h"
 
 
 KMainWindow::KMainWindow() : QMainWindow() {
@@ -30,6 +31,10 @@ KMainWindow::KMainWindow() : QMainWindow() {
     actions->addAction(QIcon::fromTheme("document-open"), "Open game", this, SLOT(action_open()));
     // m_saveAction = actions->addAction(QIcon::fromTheme("document-save"), "Save", this, SLOT(action_save()));
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
+
+
+    m_game = new KTTTGame();
+    setCentralWidget(m_game->widget());
 }
 
 
