@@ -6,15 +6,15 @@
  */
 
 
-#include <QGraphicsView>
+#include <QGraphicsScene>
 #include <QPen>
 
 #include "KTTTGame.h"
-
+#include "AutoScalingView.h"
 
 
 KTTTGame::KTTTGame() {
-    m_view = new QGraphicsView();
+    m_view = new AutoScalingView();
     m_view->setMinimumSize(400, 400);
 
 
@@ -28,7 +28,10 @@ KTTTGame::KTTTGame() {
     m_view->setRenderHints(QPainter::Antialiasing);
 
 
-    m_view->scale(m_view->size().width(), m_view->size().height());
+    //m_view->scale(m_view->size().width(), m_view->size().height());
+
+
+    m_scene->addLine(0, 0, 1, 1);
 }
 
 

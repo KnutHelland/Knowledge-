@@ -12,8 +12,8 @@
 #include <QString>
 
 #include "KGame.h"
+#include "AutoScalingView.h"
 
-class QGraphicsView;
 class QGraphicsScene;
 class QWidget;
 
@@ -34,7 +34,7 @@ public:
     virtual void load(KDocument *);
 
 protected:
-    QGraphicsView *m_view;
+    AutoScalingView *m_view;
     QGraphicsScene *m_scene;
     
     KDocument *m_document;

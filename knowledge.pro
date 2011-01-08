@@ -18,7 +18,8 @@ HEADERS += src/KDocument.h \
            src/KQuestion.h \
            src/KMainWindow.h \
            src/KGame.h \
-           src/KTTTGame.h
+           src/KTTTGame.h \
+           src/AutoScalingView.h
 
 
 SOURCES += src/KDocument.cpp \
