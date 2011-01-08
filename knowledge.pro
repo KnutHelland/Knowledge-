@@ -16,10 +16,13 @@ DESTDIR = build
 # Input
 HEADERS += src/KDocument.h \
            src/KQuestion.h \
-           src/KMainWindow.h
+           src/KMainWindow.h \
+           src/KGame.h \
+           src/KTTTGame.h
 
 
 SOURCES += src/KDocument.cpp \
            src/KQuestion.cpp \
            src/main.cpp \
-           src/KMainWindow.cpp 
+           src/KMainWindow.cpp \
+           src/KTTTGame.cpp

@@ -11,9 +11,19 @@
 
 #include <QMainWindow>
 
+#include "KGame.h"
+
 class KMainWindow : public QMainWindow {
+    Q_OBJECT;
+
 public:
-    KMainWindow() : QMainWindow() {};
+    KMainWindow();
+
+protected:
+    KGame *m_game;
+
+public slots:
+    void action_open() {}
 };
 
 
