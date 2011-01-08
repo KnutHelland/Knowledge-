@@ -8,6 +8,7 @@
 //#include <QMenuBar>
 //#include <QMenu>
 #include <QToolBar>
+#include <QFileDialog>
 
 #include "KMainWindow.h"
 
@@ -29,4 +30,14 @@ KMainWindow::KMainWindow() : QMainWindow() {
     actions->addAction(QIcon::fromTheme("document-open"), "Open game", this, SLOT(action_open()));
     // m_saveAction = actions->addAction(QIcon::fromTheme("document-save"), "Save", this, SLOT(action_save()));
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
+}
+
+
+void KMainWindow::action_open() {
+    QFileDialog dialog(this, "Open file", "", "Knowledge file (*.kxml)");
+    dialog.setFileMode(QFileDialog::ExistingFile);
+
+    if (dialog.exec()) {
+
+    }
 }

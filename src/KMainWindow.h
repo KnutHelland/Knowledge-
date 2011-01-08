@@ -23,7 +23,7 @@ protected:
     KGame *m_game;
 
 public slots:
-    void action_open() {}
+    void action_open();
 };
 
 
