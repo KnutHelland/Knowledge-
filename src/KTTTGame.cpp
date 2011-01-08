@@ -26,12 +26,6 @@ KTTTGame::KTTTGame() {
     m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setRenderHints(QPainter::Antialiasing);
-
-
-    //m_view->scale(m_view->size().width(), m_view->size().height());
-
-
-    m_scene->addLine(0, 0, 1, 1);
 }
 
 
