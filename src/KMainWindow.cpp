@@ -13,6 +13,7 @@
 
 #include "KMainWindow.h"
 #include "KTTTGame.h"
+#include "KNoGame.h"
 #include "KDocument.h"
 
 
@@ -35,7 +36,7 @@ KMainWindow::KMainWindow() : QMainWindow() {
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
 
 
-    m_game = new KTTTGame();
+    m_game = new KNoGame();
     setCentralWidget(m_game->widget());
 }
 
@@ -49,7 +50,16 @@ void KMainWindow::action_open() {
 
 	m_document = new KDocument();
 	if (!m_document->loadKxml(filename)) {
+
 	    QMessageBox(QMessageBox::Critical, "Could not load", "Could not load the selected file. Bad format.", QMessageBox::Ok, this).exec();
+
+	} else {
+	    
+	    delete m_game;
+	    m_game = new KTTTGame();
+	    setCentralWidget(m_game->widget());
+	    m_game->load(m_document);
+
 	}
     }
 }
