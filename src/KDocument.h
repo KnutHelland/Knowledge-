@@ -50,15 +50,14 @@ public:
     QString language() { return m_language; }
     void setLanguage(QString language) { m_language = language; }
 
+    QList<QString> m_categories;
+    QList<KQuestion> m_questions;
 
 
 protected:
     bool m_isLoaded;
 
     QHash<QString, QVariant> m_settings;
-
-    QList<QString> m_categories;
-    QList<KQuestion> m_questions;
 
     QString m_title;
     QString m_author;

@@ -14,15 +14,15 @@
 #include <QFont>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
+#include <QColor>
 
 #include "TTTCell.h"
 #include "KDocument.h"
 
 
 
-TTTCell::TTTCell(KDocument* document, QString* category) : QGraphicsObject() {
-    m_document = document;
-    m_category = category;
+TTTCell::TTTCell(QColor color) : QGraphicsObject() {
+    m_color = color;
 }
 
 
@@ -35,8 +35,8 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 
 void TTTCell::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*) {
-    painter->setPen(Qt::blue);
-    painter->fillRect(QRectF(0.1, 0.1, 0.9, 0.9), Qt::blue);
+    painter->setPen(m_color);
+    painter->fillRect(QRectF(0.1, 0.1, 0.9, 0.9), m_color);
 }
 
 

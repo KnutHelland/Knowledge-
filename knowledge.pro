@@ -21,7 +21,8 @@ HEADERS += src/KDocument.h \
            src/KTTTGame.h \
            src/TTTCell.h \
            src/AutoScalingView.h \
-           src/KNoGame.h
+           src/KNoGame.h \
+           src/rand.h
 
 
 SOURCES += src/KDocument.cpp \
@@ -30,4 +31,5 @@ SOURCES += src/KDocument.cpp \
            src/KMainWindow.cpp \
            src/KTTTGame.cpp \
            src/TTTCell.cpp \
-           src/KNoGame.cpp
+           src/KNoGame.cpp \
+           src/rand.cpp
