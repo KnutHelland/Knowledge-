@@ -20,7 +20,6 @@ public:
     virtual QPixmap * pixmap() = 0;
     virtual QString title() = 0;
     virtual QString description() = 0;
-    virtual void load(KDocument *) = 0;
 };
 
 #endif

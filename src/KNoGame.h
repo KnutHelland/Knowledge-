@@ -19,7 +19,7 @@ class QWidget;
 
 class KNoGame : public KGame {
 public:
-    KNoGame();
+    KNoGame(KDocument *);
 
     virtual QWidget * widget() { return static_cast<QWidget *>(m_view); }
     virtual QPixmap * pixmap() { return 0; }
@@ -29,7 +29,6 @@ public:
 	return "Open a kxml file for playing";
     }
 
-    virtual void load(KDocument *);
 
 protected:
     AutoScalingView *m_view;

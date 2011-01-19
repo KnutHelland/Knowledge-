@@ -21,6 +21,7 @@
 
 class KDocument : public QObject {
     Q_OBJECT;
+    Q_PROPERTY(QString isLoaded READ isLoaded);
     Q_PROPERTY(QString title READ title WRITE setTitle);
     Q_PROPERTY(QString author READ author WRITE setAuthor);
     Q_PROPERTY(QString description READ description WRITE setDescription);
@@ -28,6 +29,8 @@ class KDocument : public QObject {
 
 public:
     KDocument();
+
+    bool isLoaded() { return m_isLoaded; };
 
     bool loadKxml(QString filename);
     bool saveKxml(QString filename);
@@ -50,6 +53,8 @@ public:
 
 
 protected:
+    bool m_isLoaded;
+
     QHash<QString, QVariant> m_settings;
 
     QList<QString> m_categories;

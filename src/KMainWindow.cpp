@@ -36,7 +36,7 @@ KMainWindow::KMainWindow() : QMainWindow() {
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
 
 
-    m_game = new KNoGame();
+    m_game = new KNoGame(new KDocument());
     setCentralWidget(m_game->widget());
 }
 
@@ -56,9 +56,8 @@ void KMainWindow::action_open() {
 	} else {
 	    
 	    delete m_game;
-	    m_game = new KTTTGame();
+	    m_game = new KTTTGame(m_document);
 	    setCentralWidget(m_game->widget());
-	    m_game->load(m_document);
 
 	}
     }

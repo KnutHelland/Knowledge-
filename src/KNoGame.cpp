@@ -19,7 +19,7 @@
 
 
 
-KNoGame::KNoGame() {
+KNoGame::KNoGame(KDocument *) {
     m_view = new AutoScalingView();
     m_view->setMinimumSize(400, 400);
 
@@ -38,7 +38,3 @@ KNoGame::KNoGame() {
     t->scale(0.002, 0.002);
 }
 
-
-void KNoGame::load(KDocument *) {
-    
-}

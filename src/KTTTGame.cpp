@@ -15,11 +15,15 @@
 #include "AutoScalingView.h"
 #include "KDocument.h"
 
-#define TTT_COLS 8
-#define TTT_ROWS 8
+#define TTT_COLS 7
+#define TTT_ROWS 7
 
 
-KTTTGame::KTTTGame() {
+KTTTGame::KTTTGame(KDocument *document) {
+    if (!document->isLoaded()) {
+	return;
+    }
+
     m_view = new AutoScalingView();
     m_view->setMinimumSize(400, 400);
 
@@ -65,6 +69,4 @@ KTTTGame::KTTTGame() {
 }
 
 
-void KTTTGame::load(KDocument *) {
-    
-}
+

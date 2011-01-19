@@ -26,7 +26,7 @@
 
 
 KDocument::KDocument() {
-
+    m_isLoaded = false;
 }
 
 
@@ -146,6 +146,7 @@ bool KDocument::loadKxml(QString filename) {
 
     }
 
+    m_isLoaded = true;
     return true;
 }
 

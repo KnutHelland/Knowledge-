@@ -16,12 +16,12 @@
 
 class QGraphicsScene;
 class QWidget;
-
+class KDocument;
 
 
 class KTTTGame : public KGame {
 public:
-    KTTTGame();
+    KTTTGame(KDocument *);
 
     virtual QWidget * widget() { return static_cast<QWidget *>(m_view); }
     virtual QPixmap * pixmap() { return 0; }
@@ -30,8 +30,6 @@ public:
     virtual QString description() { 
 	return "A knowledge duell on a classic tic tac toe game.";
     }
-
-    virtual void load(KDocument *);
 
 protected:
     AutoScalingView *m_view;
