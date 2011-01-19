@@ -9,9 +9,11 @@
 //#include <QMenu>
 #include <QToolBar>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "KMainWindow.h"
 #include "KTTTGame.h"
+#include "KDocument.h"
 
 
 KMainWindow::KMainWindow() : QMainWindow() {
@@ -43,6 +45,11 @@ void KMainWindow::action_open() {
     dialog.setFileMode(QFileDialog::ExistingFile);
 
     if (dialog.exec()) {
+	QString filename = dialog.selectedFiles()[0];
 
+	m_document = new KDocument();
+	if (!m_document->loadKxml(filename)) {
+	    QMessageBox(QMessageBox::Critical, "Could not load", "Could not load the selected file. Bad format.", QMessageBox::Ok, this).exec();
+	}
     }
 }

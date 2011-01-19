@@ -11,7 +11,8 @@
 
 #include <QMainWindow>
 
-#include "KGame.h"
+class KGame;
+class KDocument;
 
 class KMainWindow : public QMainWindow {
     Q_OBJECT;
@@ -21,6 +22,7 @@ public:
 
 protected:
     KGame *m_game;
+    KDocument *m_document;
 
 public slots:
     void action_open();
