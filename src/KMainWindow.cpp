@@ -10,6 +10,7 @@
 #include <QToolBar>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPushButton>
 
 #include "KMainWindow.h"
 #include "KTTTGame.h"
@@ -38,6 +39,8 @@ KMainWindow::KMainWindow() : QMainWindow() {
 
     m_game = new KNoGame(new KDocument());
     setCentralWidget(m_game->widget());
+    // m_game = new KTTTGame(new KDocument());
+    // setCentralWidget(m_game->widget());
 }
 
 
@@ -58,6 +61,7 @@ void KMainWindow::action_open() {
 	    delete m_game;
 	    m_game = new KTTTGame(m_document);
 	    setCentralWidget(m_game->widget());
+	    // setCentralWidget(new QPushButton("Hello"));
 
 	}
     }

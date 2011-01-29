@@ -68,8 +68,6 @@ bool KDocument::loadKxml(QString filename) {
 	QDomElement category = categories.at(i).toElement();
 	m_categories.append(category.attribute("name"));
 
-	
-
 	/*
 	 * Questions
 	 */

@@ -22,6 +22,11 @@ class KDocument;
 class KTTTGame : public KGame {
 public:
     KTTTGame(KDocument *);
+    ~KTTTGame() {
+	delete m_view;
+	delete m_scene;
+    }
+
 
     virtual QWidget * widget() { return static_cast<QWidget *>(m_view); }
     virtual QPixmap * pixmap() { return 0; }

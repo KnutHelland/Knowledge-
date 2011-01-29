@@ -20,6 +20,7 @@ class QWidget;
 class KNoGame : public KGame {
 public:
     KNoGame(KDocument *);
+    ~KNoGame();
 
     virtual QWidget * widget() { return static_cast<QWidget *>(m_view); }
     virtual QPixmap * pixmap() { return 0; }

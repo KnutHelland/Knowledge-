@@ -5,13 +5,13 @@
  * @license GNU GPL 3 or newer
  */
 
+#include <cstdlib>
 #include <QGraphicsScene>
 #include <QPen>
 #include <iostream>
 #include <QList>
 #include <QColor>
 
-#include "rand.h"
 #include "TTTCell.h"
 #include "KTTTGame.h"
 #include "AutoScalingView.h"
@@ -37,7 +37,7 @@ KTTTGame::KTTTGame(KDocument *document) {
     int cellsPerCat = (TTT_COLS * TTT_ROWS) / (m_document->m_categories.size());
     QList<int> categoryCounter;
     for (int i = 0; i < m_document->m_categories.size(); i++) {
-	categoryCounter[i] = cellsPerCat;
+    	categoryCounter.append(cellsPerCat+1);
     }
 
     // Setup view
@@ -74,23 +74,24 @@ KTTTGame::KTTTGame(KDocument *document) {
 
     // Inserting cells
     for (int i = 1; i < (TTT_COLS+1); i++) {
-	for (int j = 1; j < (TTT_ROWS+1); j++) {
-	    int category = 1;
-	    while (true) {
-	    	category = (randomNumber() * m_document->m_categories.size());
-	    	if (categoryCounter[category] > 0) {
-	    	    categoryCounter[category] = categoryCounter[category] - 1;
-	    	    break;
-	    	}
-	    }
+    	for (int j = 1; j < (TTT_ROWS+1); j++) {
+    	    int category = 1;
+    	    while (true) {
+    	    	category = (((qreal)qrand() / RAND_MAX) * (m_document->m_categories.size()));
+		// std::cout << category << std::endl;
+    	    	if (categoryCounter[category] > 0) {
+    	    	    categoryCounter[category] = categoryCounter[category] - 1;
+    	    	    break;
+    	    	}
+    	    }
 	    
-	    TTTCell *cell = new TTTCell(colors[category]);
+    	    TTTCell *cell = new TTTCell(colors[category]);
 	    
-	    cell->scale(cellWidth, cellHeight);
+    	    cell->scale(cellWidth, cellHeight);
 
-	    cell->setPos((qreal)i * cellWidth, (qreal)j * cellHeight);
-	    m_scene->addItem(cell);
-	}
+    	    cell->setPos((qreal)i * cellWidth, (qreal)j * cellHeight);
+    	    m_scene->addItem(cell);
+    	}
     }
 }
 

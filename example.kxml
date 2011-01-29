@@ -23,6 +23,13 @@
       </question>
 
     </category>
+    <category name="Bilmerke">
+
+      <question>
+	<text>Kva bilmerke er ein Accord?</text>
+      </question>
+
+    </category>
   </questions>
       
   <settings>

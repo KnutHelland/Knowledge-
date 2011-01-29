@@ -38,3 +38,8 @@ KNoGame::KNoGame(KDocument *) {
     t->scale(0.002, 0.002);
 }
 
+
+KNoGame::~KNoGame() {
+    delete m_view;
+    delete m_scene;
+}
