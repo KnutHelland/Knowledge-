@@ -85,7 +85,7 @@ KTTTGame::KTTTGame(KDocument *document) {
     	    	}
     	    }
 	    
-    	    TTTCell *cell = new TTTCell(colors[category]);
+    	    TTTCell *cell = new TTTCell(m_document->m_categories[category], m_document, colors[category]);
 	    
     	    cell->scale(cellWidth, cellHeight);
 

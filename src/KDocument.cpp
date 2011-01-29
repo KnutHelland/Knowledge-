@@ -71,7 +71,7 @@ bool KDocument::loadKxml(QString filename) {
 	/*
 	 * Questions
 	 */
-	QDomNodeList questions = document.elementsByTagName("question");
+	QDomNodeList questions = category.elementsByTagName("question");
 	for (uint j = 0; j < questions.length(); j++) {
 	    
 	    QDomElement question = questions.at(j).toElement();

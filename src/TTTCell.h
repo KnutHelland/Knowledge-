@@ -26,7 +26,7 @@ class TTTCell : public QGraphicsObject {
     Q_OBJECT;
 
 public:
-    TTTCell(QColor color);
+    TTTCell(QString, KDocument *, QColor color);
     void mousePressEvent(QGraphicsSceneMouseEvent *);
 
      virtual QRectF boundingRect() const {
@@ -36,6 +36,8 @@ public:
 
 
 protected:
+    QString m_category;
+    KDocument *m_document;
     QColor m_color;
 };
 

@@ -6,7 +6,9 @@
  */
 
 
+#include <cstdlib>
 #include <iostream>
+
 #include <QtCore>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -21,15 +23,29 @@
 
 
 
-TTTCell::TTTCell(QColor color) : QGraphicsObject() {
-    m_color = color;
+TTTCell::TTTCell(QString category, KDocument *document, QColor color) :
+    QGraphicsObject(),
+    m_category(category),
+    m_document(document),
+    m_color(color) {
 }
 
 
 void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->type() == QEvent::GraphicsSceneMouseDoubleClick) {
-	// Open the question
-	std::cout << "Gonna open" << std::endl;
+
+	// Get a random question from correct category.
+	int categoryNumber;
+	KQuestion *question;
+	while(true) {
+	    categoryNumber = ((qreal)qrand() / RAND_MAX) * m_document->m_questions.size();
+	    if (m_document->m_questions[categoryNumber].category() == m_category) {
+		question = &m_document->m_questions[categoryNumber];
+		break;
+	    }
+	}
+
+	std::cout << m_category.toStdString() << ": " << question->text().toStdString() << std::endl;
     }
 }
 
