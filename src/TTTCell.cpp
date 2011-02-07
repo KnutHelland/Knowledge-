@@ -48,7 +48,8 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 	QMessageBox m;
 	m.setWindowTitle(m_category);
-	m.setText(question->text());
+	m.setText(question->text() + "\n\nRett svar?");
+	m.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 	m.exec();
     }
 }
