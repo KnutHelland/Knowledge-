@@ -17,6 +17,7 @@
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QColor>
+#include <QMessageBox>
 
 #include "TTTCell.h"
 #include "KDocument.h"
@@ -45,7 +46,10 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	    }
 	}
 
-	std::cout << m_category.toStdString() << ": " << question->text().toStdString() << std::endl;
+	QMessageBox m;
+	m.setWindowTitle(m_category);
+	m.setText(question->text());
+	m.exec();
     }
 }
 
