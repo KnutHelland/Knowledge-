@@ -18,7 +18,7 @@
 #include "KDocument.h"
 
 
-KMainWindow::KMainWindow() : QMainWindow() {
+KMainWindow::KMainWindow() : QMainWindow(), m_document(0) {
     setWindowTitle("Knowledge");
 
     // // Menu bar
@@ -33,7 +33,7 @@ KMainWindow::KMainWindow() : QMainWindow() {
     addToolBar(Qt::TopToolBarArea, actions);
 
     actions->addAction(QIcon::fromTheme("document-open"), "Open game", this, SLOT(action_open()));
-    // actions->addAction(QIcon::fromTheme("view-refresh"), "Restart game", this, SLOT(action_restart()));
+    actions->addAction(QIcon::fromTheme("view-refresh"), "Restart game", this, SLOT(action_restart()));
     // m_saveAction = actions->addAction(QIcon::fromTheme("document-save"), "Save", this, SLOT(action_save()));
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
 
@@ -70,7 +70,6 @@ void KMainWindow::action_open() {
 	    delete m_game;
 	    m_game = new KTTTGame(m_document);
 	    setCentralWidget(m_game->widget());
-	    // setCentralWidget(new QPushButton("Hello"));
 
 	}
     }
@@ -78,20 +77,20 @@ void KMainWindow::action_open() {
 
 
 
-// /**
-//  * Restart the game
-//  */
-// void KMainWindow::action_restart() {
-//     if (m_document != 0 && !m_document->isLoaded()) {
-// 	return;
-//     }
+/**
+ * Restart the game
+ */
+void KMainWindow::action_restart() {
+    if (m_document == 0 || !m_document->isLoaded()) {
+	return;
+    }
 
-//     QMessageBox m(QMessageBox::Question, "Restart", "Do you really want to restart game? The current game will be lost.", QMessageBox::Yes | QMessageBox::No, this);
-//     if (m.exec() == QMessageBox::Yes) {
+    QMessageBox m(QMessageBox::Question, "Restart", "Do you really want to restart game? The current game will be lost.", QMessageBox::Yes | QMessageBox::No, this);
+    if (m.exec() == QMessageBox::Yes) {
 	
-// 	delete m_game;
-// 	m_game = new KTTTGame(m_document);
-// 	setCentralWidget(m_game->widget());
+	delete m_game;
+	m_game = new KTTTGame(m_document);
+	setCentralWidget(m_game->widget());
 
-//     }
-// }
+    }
+}

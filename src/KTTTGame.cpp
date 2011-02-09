@@ -17,13 +17,7 @@
 #include "AutoScalingView.h"
 #include "KDocument.h"
 
-#define TTT_COLS 7
-#define TTT_ROWS 7
-#define TTT_WIDTH 1.0
-#define TTT_HEIGHT 1.0
-
-
-KTTTGame::KTTTGame(KDocument *document) {
+KTTTGame::KTTTGame(KDocument *document) : m_turn(1) {
     if (!document->isLoaded()) {
 	return;
     }
@@ -63,6 +57,9 @@ KTTTGame::KTTTGame(KDocument *document) {
     // Inserting cells
     for (int i = 1; i < (TTT_COLS+1); i++) {
     	for (int j = 1; j < (TTT_ROWS+1); j++) {
+	    int column = i-1;
+	    int row = j-1;
+
     	    int category = 1;
     	    while (true) {
     	    	category = (((qreal)qrand() / RAND_MAX) * (m_document->m_categories.size()));
@@ -73,15 +70,46 @@ KTTTGame::KTTTGame(KDocument *document) {
     	    	}
     	    }
 	    
-    	    TTTCell *cell = new TTTCell(m_document->m_categories[category], m_document, colors[category]);
+    	    TTTCell *cell = new TTTCell(m_document->m_categories[category], m_document, colors[category], this, column, row);
 	    
     	    cell->scale(cellWidth, cellHeight);
 
     	    cell->setPos((qreal)i * cellWidth, (qreal)j * cellHeight);
     	    m_scene->addItem(cell);
+
+	    m_cells[column][row] = cell;
     	}
     }
 }
 
 
 
+/**
+ * action arg arg arg arg
+ *
+ * check 3 4 (check column 3 row 4 with team 1)
+ * undo check 3 4
+ */
+void KTTTGame::runCommand(QString command) {
+    QStringList args = command.split(" ");
+    
+    if (args[0].toLower() == "check") {
+	int column = args[1].toInt();
+	int row = args[2].toInt();
+
+	m_cells[column][row]->setChecked(m_turn);
+
+	if (m_turn == 2) {
+	    m_turn = 1;
+	} else {
+	    m_turn++;
+	}
+    }
+
+    if (args[0].toLower() == "undo" && args[1].toLower() == "check") {
+	int column = args[2].toInt();
+	int row = args[3].toInt();
+
+	m_cells[column][row]->setChecked(0);
+    }
+}
