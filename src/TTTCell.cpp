@@ -41,6 +41,10 @@ TTTCell::TTTCell(QString category, KDocument *document, QColor color, KTTTGame *
 
 void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (event->type() == QEvent::GraphicsSceneMouseDoubleClick) {
+	// Don't play on checked cells.
+	if (m_checked != 0) {
+	    return;
+	}
 
 	// Get a random question from correct category.
 	int categoryNumber;
@@ -62,6 +66,13 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	    QString command("check ");
 	    command += QString::number(m_column) + " " + QString::number(m_row);
 	    m_game->runCommand(command);
+
+	} else {
+	    
+	    m_game->m_turn++;
+	    if (m_game->m_turn == 3) {
+		m_game->m_turn = 1;
+	    }
 
 	}
     }

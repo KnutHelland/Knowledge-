@@ -13,12 +13,15 @@
 
 class KGame;
 class KDocument;
+class QAction;
 
 class KMainWindow : public QMainWindow {
     Q_OBJECT;
 
 public:
     KMainWindow();
+    
+    QAction *m_undoAction;
 
 protected:
     KGame *m_game;
@@ -27,6 +30,7 @@ protected:
 public slots:
     void action_open();
     void action_restart();
+    void action_undo();
 };
 
 

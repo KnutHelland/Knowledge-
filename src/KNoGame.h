@@ -18,6 +18,8 @@ class QGraphicsScene;
 class QWidget;
 
 class KNoGame : public KGame {
+    Q_OBJECT;
+
 public:
     KNoGame(KDocument *);
     ~KNoGame();

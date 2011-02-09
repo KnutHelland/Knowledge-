@@ -28,6 +28,8 @@ class KDocument;
 
 
 class KTTTGame : public KGame {
+    Q_OBJECT;
+
 public:
     KTTTGame(KDocument *);
     ~KTTTGame() {
@@ -45,6 +47,10 @@ public:
 	return "A knowledge duell on a classic tic tac toe game.";
     }
 
+    void undo();
+    int m_turn;
+
+
 protected:
     TTTCell *m_cells[TTT_COLS][TTT_ROWS];
 
@@ -53,8 +59,6 @@ protected:
     
     KDocument *m_document;
     QStringList *m_commandHistory;
-
-    int m_turn;
 };
 
 

@@ -17,7 +17,7 @@
 #include "AutoScalingView.h"
 #include "KDocument.h"
 
-KTTTGame::KTTTGame(KDocument *document) : m_turn(1) {
+KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStringList) {
     if (!document->isLoaded()) {
 	return;
     }
@@ -104,12 +104,32 @@ void KTTTGame::runCommand(QString command) {
 	} else {
 	    m_turn++;
 	}
+
+	m_commandHistory->append(command);
     }
 
     if (args[0].toLower() == "undo" && args[1].toLower() == "check") {
 	int column = args[2].toInt();
 	int row = args[3].toInt();
 
+	if (m_turn == 2) {
+	    m_turn = 1;
+	} else {
+	    m_turn++;
+	}
+
 	m_cells[column][row]->setChecked(0);
+    }
+}
+
+
+
+void KTTTGame::undo() {
+    if (m_commandHistory->size() > 0) {
+
+	QString command("undo ");
+	command += m_commandHistory->takeLast();
+	runCommand(command);
+
     }
 }

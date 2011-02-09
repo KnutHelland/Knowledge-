@@ -5,6 +5,7 @@
  * @license GNU GPL 3 or newer
  */
 
+#include <iostream>
 //#include <QMenuBar>
 //#include <QMenu>
 #include <QToolBar>
@@ -34,6 +35,7 @@ KMainWindow::KMainWindow() : QMainWindow(), m_document(0) {
 
     actions->addAction(QIcon::fromTheme("document-open"), "Open game", this, SLOT(action_open()));
     actions->addAction(QIcon::fromTheme("view-refresh"), "Restart game", this, SLOT(action_restart()));
+    m_undoAction = actions->addAction(QIcon::fromTheme("edit-undo"), "Undo", this, SLOT(action_undo()));
     // m_saveAction = actions->addAction(QIcon::fromTheme("document-save"), "Save", this, SLOT(action_save()));
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
 
@@ -92,5 +94,16 @@ void KMainWindow::action_restart() {
 	m_game = new KTTTGame(m_document);
 	setCentralWidget(m_game->widget());
 
+    }
+}
+
+
+
+/**
+ * Undo a step
+ */
+void KMainWindow::action_undo() {
+    if (QString(m_game->metaObject()->className()) == "KTTTGame") {
+	static_cast<KTTTGame *>(m_game)->undo();
     }
 }

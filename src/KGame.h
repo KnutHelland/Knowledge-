@@ -9,12 +9,16 @@
 #ifndef KGAME_H
 #define KGAME_H
 
+#include <QObject>
+
 class QWidget;
 class KDocument;
 class QPixmap;
 class QString;
 
-class KGame {
+class KGame : public QObject {
+    Q_OBJECT;
+
 public:
     virtual QWidget * widget() = 0;
     virtual QPixmap * pixmap() = 0;
