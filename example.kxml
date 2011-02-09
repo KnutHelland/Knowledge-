@@ -7,6 +7,7 @@
   </meta>
 
   <questions>
+
     <category name="Lett blanding">
 
       <question type="manual" id="1" level="easy">
@@ -23,11 +24,37 @@
       </question>
 
     </category>
+
+
     <category name="Bilmerke">
 
-      <question>
-	<text>Kva bilmerke er ein Accord?</text>
-      </question>
+      <question><text>Kva bilmerke er ein Accord?</text></question>
+      <question><text>Kan du få Ford Focus med bakhjul som svinger?</text></question>
+      <question><text>Kva land produserer Volkswagen?</text></question>
+      <question><text>Kva bilmerke er verdens beste bil – Space Vagon?</text></question>
+      <question><text>Er Subaru norsk?</text></question>
+
+    </category>
+
+
+    <category name="Programmering">
+
+      <question><text>Støtter PHP multi threading?</text></question>
+      <question><text>Kan du programmera ein Java-applikasjon til iPhone?</text></question>
+      <question><text>Kven eig Flash?</text></question>
+      <question><text>Kven eig Java?</text></question>
+      <question><text>Er .NET ein åpen platfrom?</text></question>
+
+    </category>
+
+
+    <category name="Bjerkreim">
+
+      <question><text>Har kommunegrensa endra seg i løp av det siste hundre året?</text></question>
+      <question><text>Stiller FrP med valliste til kommunevalet i 2011?</text></question>
+      <question><text>Kva parti har ordføraren?</text></question>
+      <question><text>Har Bjerkreim tre forskjellige frisørsalongar?</text></question>
+      <question><text>Kva type lyn er Ørsdalen kjend for?</text></question>
 
     </category>
   </questions>

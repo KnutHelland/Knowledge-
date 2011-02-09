@@ -25,7 +25,7 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
 
     // Need some colors for the drawing.
     QList<QColor> colors;
-    colors << QColor(Qt::blue) << QColor(Qt::red) << QColor(Qt::green);
+    colors << QColor(Qt::blue) << QColor(Qt::red) << QColor(Qt::green) << QColor(Qt::darkRed) << QColor(Qt::yellow);
 
     // Some calculations
     int cellsPerCat = (TTT_COLS * TTT_ROWS) / (m_document->m_categories.size());
