@@ -26,6 +26,7 @@ class QStringList;
 class QGraphicsScene;
 class QWidget;
 class KDocument;
+class KTTTBackground;
 
 
 class KTTTGame : public KGame {
@@ -66,6 +67,7 @@ protected:
 
     KDocument *m_document;
     QStringList *m_commandHistory;
+    KTTTBackground *m_background;
 };
 
 

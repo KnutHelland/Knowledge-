@@ -14,6 +14,7 @@
 
 #include "TTTCell.h"
 #include "KTTTGame.h"
+#include "KTTTBackground.h"
 #include "AutoScalingView.h"
 #include "KDocument.h"
 
@@ -47,6 +48,10 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
     m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_view->setRenderHints(QPainter::Antialiasing);
+
+    // Appending background
+    m_background = new KTTTBackground();
+    m_scene->addItem(m_background);
 
 
     // Draw simple TTT cells. (want the margins to be 1 cell width)
