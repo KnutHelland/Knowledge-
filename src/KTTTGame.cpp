@@ -98,13 +98,8 @@ void KTTTGame::runCommand(QString command) {
 	int row = args[2].toInt();
 
 	m_cells[column][row]->setChecked(m_turn);
-
-	if (m_turn == 2) {
-	    m_turn = 1;
-	} else {
-	    m_turn++;
-	}
-
+	
+	nextTurn();
 	m_commandHistory->append(command);
     }
 
@@ -112,11 +107,7 @@ void KTTTGame::runCommand(QString command) {
 	int column = args[2].toInt();
 	int row = args[3].toInt();
 
-	if (m_turn == 2) {
-	    m_turn = 1;
-	} else {
-	    m_turn++;
-	}
+	nextTurn();
 
 	m_cells[column][row]->setChecked(0);
     }
@@ -132,4 +123,114 @@ void KTTTGame::undo() {
 	runCommand(command);
 
     }
+}
+
+
+
+void KTTTGame::setTurn(int turn) {
+    if (turn % 2 == 0) {
+	m_turn = 2;
+    } else {
+	m_turn = 1;
+    }
+
+    // Evaluate winner
+    
+    // Two teams
+    for (int team = 1; team <= 2; team++) {
+	
+	// Horizontal
+	for (int row = 0; row < TTT_ROWS; row++) {
+	    int got = 0;
+
+	    for (int col = 0; col < TTT_COLS; col++) {
+		if (m_cells[col][row]->checked() == team) {
+		    got++;
+
+		    if (got >= TTT_TARGET) {
+			std::cout << "Got horizontal winner team " << team << std::endl;
+		    }
+		} else {
+		    got = 0;
+		}
+	    }
+	}
+
+
+	// Vertical
+	for (int col = 0; col < TTT_COLS; col++) {
+	    int got = 0;
+	   
+	    for (int row = 0; row < TTT_ROWS; row++) {
+		if (m_cells[col][row]->checked() == team) {
+		    got++;
+
+		    if (got >= TTT_TARGET) {
+			std::cout << "Got vertical winner team " << team << std::endl;
+		    }
+		} else {
+		    got = 0;
+		}
+	    }
+	}
+
+
+	// Diagonals
+	int diagonals = TTT_ROWS + TTT_COLS;
+
+	// Direction backslash (\)
+	// Start from bottom left corner.
+	// i walks vertical, j walks diagonal from bottom
+	for (int i = 0; i < diagonals; i++) {
+	    int got = 0;
+	    
+	    for (int j = 0; j < diagonals; j++) {
+		int col = i-j;
+		int row = TTT_ROWS-j;
+
+		if (col < 0 || col > (TTT_COLS-1) ||
+		    row < 0 || row > (TTT_ROWS-1)) {
+		    continue;
+		}
+		
+		if (m_cells[col][row]->checked() == team) {
+		    got++;
+
+		    if (got >= TTT_TARGET) {
+			std::cout << "Got a backslash diagonal winner team " << team << std::endl;
+		    }
+		} else {
+		    got = 0;
+		}
+	    }
+	}
+
+	
+	// Direction slash (/)
+	// Start from top right corner
+	// i walks vertical, j walks diagonal from top
+	for (int i = 0; i < diagonals; i++) {
+	    int got = 0;
+
+	    for (int j = 0; j < diagonals; j++) {
+		int col = (TTT_COLS-i)-j;
+		int row = j;
+
+		if (col < 0 || col > (TTT_COLS-1) ||
+		    row < 0 || row > (TTT_ROWS-1)) {
+		    continue;
+		}
+		
+		if (m_cells[col][row]->checked() == team) {
+		    got++;
+
+		    if (got >= TTT_TARGET) {
+			std::cout << "Got a slash diagonal winner team " << team << std::endl;
+		    }
+		} else {
+		    got = 0;
+		}
+	    }
+	}
+    }    
 }

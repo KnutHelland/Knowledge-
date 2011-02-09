@@ -15,10 +15,11 @@
 #include "AutoScalingView.h"
 
 
-#define TTT_COLS 7
-#define TTT_ROWS 7
+#define TTT_COLS 6
+#define TTT_ROWS 6
 #define TTT_WIDTH 1.0
 #define TTT_HEIGHT 1.0
+#define TTT_TARGET 4    // How long to win?
 
 class TTTCell;
 class QStringList;
@@ -29,6 +30,7 @@ class KDocument;
 
 class KTTTGame : public KGame {
     Q_OBJECT;
+    Q_PROPERTY(int turn READ turn WRITE setTurn);
 
 public:
     KTTTGame(KDocument *);
@@ -48,7 +50,10 @@ public:
     }
 
     void undo();
-    int m_turn;
+    
+    void setTurn(int);
+    int turn() { return m_turn; }
+    void nextTurn() { setTurn(turn() + 1); }
 
 
 protected:
@@ -57,6 +62,8 @@ protected:
     AutoScalingView *m_view;
     QGraphicsScene *m_scene;
     
+    int m_turn;
+
     KDocument *m_document;
     QStringList *m_commandHistory;
 };

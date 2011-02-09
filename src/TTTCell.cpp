@@ -68,12 +68,7 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	    m_game->runCommand(command);
 
 	} else {
-	    
-	    m_game->m_turn++;
-	    if (m_game->m_turn == 3) {
-		m_game->m_turn = 1;
-	    }
-
+	    m_game->nextTurn();
 	}
     }
 }
