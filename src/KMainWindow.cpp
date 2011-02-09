@@ -33,6 +33,7 @@ KMainWindow::KMainWindow() : QMainWindow() {
     addToolBar(Qt::TopToolBarArea, actions);
 
     actions->addAction(QIcon::fromTheme("document-open"), "Open game", this, SLOT(action_open()));
+    // actions->addAction(QIcon::fromTheme("view-refresh"), "Restart game", this, SLOT(action_restart()));
     // m_saveAction = actions->addAction(QIcon::fromTheme("document-save"), "Save", this, SLOT(action_save()));
     // actions->addAction(QIcon::fromTheme("document-save-as"), "Save as", this, SLOT(action_saveAs()));
 
@@ -45,6 +46,14 @@ KMainWindow::KMainWindow() : QMainWindow() {
 
 
 void KMainWindow::action_open() {
+    // Reset current game?
+    if (m_document != 0 && m_document->isLoaded()) {
+	if (QMessageBox(QMessageBox::Question, "Open game", "By opening a new game, the current game state will be lost. Do you want to continue?", QMessageBox::Yes | QMessageBox::No).exec() == QMessageBox::No) {
+	    return;
+	}
+    }
+
+
     QFileDialog dialog(this, "Open file", "", "Knowledge file (*.kxml)");
     dialog.setFileMode(QFileDialog::ExistingFile);
 
@@ -66,3 +75,23 @@ void KMainWindow::action_open() {
 	}
     }
 }
+
+
+
+// /**
+//  * Restart the game
+//  */
+// void KMainWindow::action_restart() {
+//     if (m_document != 0 && !m_document->isLoaded()) {
+// 	return;
+//     }
+
+//     QMessageBox m(QMessageBox::Question, "Restart", "Do you really want to restart game? The current game will be lost.", QMessageBox::Yes | QMessageBox::No, this);
+//     if (m.exec() == QMessageBox::Yes) {
+	
+// 	delete m_game;
+// 	m_game = new KTTTGame(m_document);
+// 	setCentralWidget(m_game->widget());
+
+//     }
+// }

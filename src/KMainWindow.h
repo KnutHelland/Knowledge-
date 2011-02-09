@@ -26,6 +26,7 @@ protected:
 
 public slots:
     void action_open();
+    void action_restart();
 };
 
 
