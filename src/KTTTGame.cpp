@@ -60,18 +60,6 @@ KTTTGame::KTTTGame(KDocument *document) {
     qreal cellHeight = TTT_HEIGHT / (TTT_ROWS + 2);
 
 
-    // // Columns
-    // for (int i = 2; i < (TTT_COLS+1); i++) {
-    // 	m_scene->addLine((qreal)i * cellWidth, cellWidth, (qreal)i * cellWidth, TTT_WIDTH-cellWidth);
-    // }
-
-
-    // // Rows
-    // for (int i = 2; i < (TTT_ROWS+1); i++) {
-    // 	m_scene->addLine(cellHeight, (qreal)i * cellHeight, TTT_HEIGHT-cellHeight, (qreal)i * cellHeight);
-    // }
-
-
     // Inserting cells
     for (int i = 1; i < (TTT_COLS+1); i++) {
     	for (int j = 1; j < (TTT_ROWS+1); j++) {
