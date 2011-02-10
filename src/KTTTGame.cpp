@@ -11,6 +11,7 @@
 #include <iostream>
 #include <QList>
 #include <QColor>
+#include <QMessageBox>
 
 #include "TTTCell.h"
 #include "KTTTGame.h"
@@ -156,6 +157,7 @@ void KTTTGame::setTurn(int turn) {
 		    got++;
 
 		    if (got >= TTT_TARGET) {
+			QMessageBox(QMessageBox::Information, "Winner", QString("Team ") + QString::number(team) + " is the winner with the horizontal line").exec();
 			std::cout << "Got horizontal winner team " << team << std::endl;
 		    }
 		} else {
@@ -174,6 +176,7 @@ void KTTTGame::setTurn(int turn) {
 		    got++;
 
 		    if (got >= TTT_TARGET) {
+			QMessageBox(QMessageBox::Information, "Winner", QString("Team ") + QString::number(team) + " is the winner with the vertical line").exec();
 			std::cout << "Got vertical winner team " << team << std::endl;
 		    }
 		} else {
@@ -205,6 +208,7 @@ void KTTTGame::setTurn(int turn) {
 		    got++;
 
 		    if (got >= TTT_TARGET) {
+			QMessageBox(QMessageBox::Information, "Winner", QString("Team ") + QString::number(team) + " is the winner with the backslash diagonal line").exec();
 			std::cout << "Got a backslash diagonal winner team " << team << std::endl;
 		    }
 		} else {
@@ -233,6 +237,7 @@ void KTTTGame::setTurn(int turn) {
 		    got++;
 
 		    if (got >= TTT_TARGET) {
+			QMessageBox(QMessageBox::Information, "Winner", QString("Team ") + QString::number(team) + " is the winner with the slash diagonal line").exec();
 			std::cout << "Got a slash diagonal winner team " << team << std::endl;
 		    }
 		} else {

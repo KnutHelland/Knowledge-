@@ -48,7 +48,7 @@ void KTTTBackground::paint(QPainter* painter, const QStyleOptionGraphicsItem *, 
 	int x = 0.7 * cellWidth;
 	int y = cellHeight * (i+1.7);
 
-	painter->drawText(x, y, QString::number(i));
+	painter->drawText(x, y, QString::number(i+1));
     }
 
     // List categories
