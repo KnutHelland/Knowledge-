@@ -25,8 +25,7 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
     m_document = document;
 
     // Need some colors for the drawing.
-    QList<QColor> colors;
-    colors << QColor(Qt::blue) << QColor(Qt::red) << QColor(Qt::green) << QColor(Qt::darkRed) << QColor(Qt::yellow);
+    m_colors << QColor(Qt::blue) << QColor(Qt::red) << QColor(Qt::green) << QColor(Qt::darkRed) << QColor(Qt::yellow);
 
     // Some calculations
     int cellsPerCat = (TTT_COLS * TTT_ROWS) / (m_document->m_categories.size());
@@ -37,7 +36,7 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
 
     // Setup view
     m_view = new AutoScalingView();
-    m_view->setMinimumSize(400, 400);
+    m_view->setMinimumSize(400*1.5, 400);
 
 
     // Setup scene
@@ -50,12 +49,12 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
     m_view->setRenderHints(QPainter::Antialiasing);
 
     // Appending background
-    m_background = new KTTTBackground();
+    m_background = new KTTTBackground(this);
     m_scene->addItem(m_background);
 
 
     // Draw simple TTT cells. (want the margins to be 1 cell width)
-    qreal cellWidth = TTT_WIDTH / (TTT_COLS + 2);
+    qreal cellWidth = TTT_WIDTH / (TTT_COLS + 6);
     qreal cellHeight = TTT_HEIGHT / (TTT_ROWS + 2);
 
 
@@ -65,18 +64,18 @@ KTTTGame::KTTTGame(KDocument *document) : m_turn(1), m_commandHistory(new QStrin
 	    int column = i-1;
 	    int row = j-1;
 
+	    // Pick a random category
     	    int category = 1;
     	    while (true) {
     	    	category = (((qreal)qrand() / RAND_MAX) * (m_document->m_categories.size()));
-		// std::cout << category << std::endl;
+
     	    	if (categoryCounter[category] > 0) {
     	    	    categoryCounter[category] = categoryCounter[category] - 1;
     	    	    break;
     	    	}
     	    }
 	    
-    	    TTTCell *cell = new TTTCell(m_document->m_categories[category], m_document, colors[category], this, column, row);
-	    
+    	    TTTCell *cell = new TTTCell(m_document->m_categories[category], m_document, m_colors[category], this, column, row);
     	    cell->scale(cellWidth, cellHeight);
 
     	    cell->setPos((qreal)i * cellWidth, (qreal)j * cellHeight);

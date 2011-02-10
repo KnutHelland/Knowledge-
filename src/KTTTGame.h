@@ -10,8 +10,11 @@
 #define KTTTGAME_H
 
 #include <QString>
+#include <QList>
+#include <QColor>
 
 #include "KGame.h"
+#include "KTTTBackground.h"
 #include "AutoScalingView.h"
 
 
@@ -56,6 +59,9 @@ public:
     int turn() { return m_turn; }
     void nextTurn() { setTurn(turn() + 1); }
 
+    friend class KTTTBackground;
+
+    QList<QColor> m_colors;
 
 protected:
     TTTCell *m_cells[TTT_COLS][TTT_ROWS];
