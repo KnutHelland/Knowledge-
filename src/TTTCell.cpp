@@ -57,17 +57,28 @@ void TTTCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 	    }
 	}
 
+	// Build the question
+	QString q = question->text() + "\n";
+	for (int i = 0; i < question->m_answers.size(); i++) {
+	    QString a = question->m_answers[i];
+	    q += "\n" + a;
+	}
+
+	// Display the message box
 	QMessageBox m;
 	m.setWindowTitle(m_category);
-	m.setText(question->text() + "\n\nRett svar?");
+	m.setText(q + "\n\nRett svar?");
 	m.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 	if (m.exec() == QMessageBox::Yes) {
 
+	    // Check the cell
 	    QString command("check ");
 	    command += QString::number(m_column) + " " + QString::number(m_row);
 	    m_game->runCommand(command);
 
 	} else {
+	    
+	    // Wrong answer. Next turn
 	    m_game->nextTurn();
 	}
     }

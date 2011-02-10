@@ -26,6 +26,8 @@
     </category>
 
 
+
+    <!-- Simplified to only questions -->
     <category name="Bilmerke">
 
       <question><text>Kva bilmerke er ein Accord?</text></question>
