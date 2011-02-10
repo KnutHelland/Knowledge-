@@ -138,6 +138,10 @@ void KTTTGame::setTurn(int turn) {
 	m_turn = 1;
     }
 
+    // Change turn
+    m_background->update(m_background->boundingRect());
+
+
     // Evaluate winner
     
     // Two teams

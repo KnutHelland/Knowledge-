@@ -61,5 +61,20 @@ void KTTTBackground::paint(QPainter* painter, const QStyleOptionGraphicsItem *, 
 
 
     // Whos turn?
-    
+    painter->setPen(QColor("black"));
+    painter->drawText(0.65/scale, 0.7/scale, "Denne runden:");
+
+    // Scale back to normal scale
+    painter->scale(1/scale, 1/scale);
+    cellHeight *= scale;
+    cellWidth *= scale;
+
+    if (m_game->turn() == 1) {
+	painter->setPen(QPen(QColor("blue"), 0.008));
+	painter->drawEllipse(QRectF(0.65, 0.75, cellWidth, cellHeight));
+    } else {
+	painter->setPen(QPen(QColor("red"), 0.008));
+	painter->drawLine(QPointF(0.65, 0.75), QPointF(0.65+cellWidth, 0.75+cellHeight));
+	painter->drawLine(QPointF(0.65, 0.75+cellHeight), QPointF(0.65+cellWidth, 0.75));
+    }
 }
