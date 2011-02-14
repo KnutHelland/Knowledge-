@@ -33,6 +33,7 @@ public:
 
     KQuestion() : QObject() {}
     KQuestion(const KQuestion &q) : QObject() { m_answers = q.m_answers; m_id = q.id(); m_text = q.text(); m_category = q.category(); m_type = q.type(); m_level = q.level(); m_image = q.image(); }
+    KQuestion operator=(const KQuestion& q) { return KQuestion(q); }
 
     int id() const { return m_id; }
     void setId(int id) { m_id = id; }
